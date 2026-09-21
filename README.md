@@ -1,73 +1,144 @@
-# Welcome to your Lovable project
+# JJ Glassworks — Marketing Website
 
-## Project info
+A production marketing website for JJ Glassworks, a family-owned glass and aluminium
+fabrication business operating in Gauteng, South Africa since 1988.
 
-**URL**: https://lovable.dev/projects/09a14ae7-bd4a-415b-b22e-66bbeb1a9240
+## Overview
 
-## How can I edit this code?
+JJ Glassworks fabricates and installs aluminium windows, doors, shopfronts, shower
+glass, balustrades, and custom-cut glass for residential, commercial, and industrial
+clients. This site is their public-facing website: it presents the business, its
+services, and a portfolio of completed projects, and gives prospective customers a way
+to request a quote.
 
-There are several ways of editing your application.
+## The Problem
 
-**Use Lovable**
+The business relies on word of mouth and repeat commercial clients, but had no proper
+web presence to support that — no way for a prospective customer to see the range of
+services offered, review completed work, or reach the business without picking up the
+phone during office hours.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/09a14ae7-bd4a-415b-b22e-66bbeb1a9240) and start prompting.
+## The Solution
 
-Changes made via Lovable will be committed automatically to this repo.
+A fast, content-focused Next.js site that covers the core paths a prospective customer
+or existing commercial client needs: what services are offered, examples of completed
+work by category (residential, commercial, industrial), who the team is, and several
+direct ways to make contact (WhatsApp, phone, email, or a quote request form).
 
-**Use your preferred IDE**
+## Key Features
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- **Service pages** — detailed breakdowns of each service line (aluminium windows,
+  doors, shopfronts, shower/bathroom glass, cut-to-size glass, putty repairs and
+  glazing), each with its own imagery and specifics.
+- **Completed projects gallery** — a filterable portfolio (`/completed-projects`)
+  covering commercial and industrial case studies, plus a dedicated residential
+  before/after section. `/gallery` permanently redirects here.
+- **About / team page** — company history, a group photo, and a team directory with
+  direct contact details for key staff.
+- **Contact page** — an embedded Google Maps location, direct WhatsApp/phone/email
+  links, business hours, and a multi-service quote request form.
+- **Persistent mobile call-to-action** and floating WhatsApp button for fast contact
+  on mobile, where most of this business's traffic originates.
+- Responsive, accessible layout with `next/image` throughout (remote images served
+  from Cloudinary) and semantic markup for SEO.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Tech Stack
 
-Follow these steps:
+- **Framework:** Next.js 16 (App Router, Turbopack, React 18, TypeScript)
+- **Styling:** Tailwind CSS, `class-variance-authority` for component variants,
+  `tailwind-merge` / `clsx` for class composition
+- **Icons:** lucide-react
+- **Images:** Cloudinary (remote), optimized via `next/image`
+- **Linting:** ESLint with `eslint-config-next`
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## Architecture
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+This is a static-first Next.js App Router site — there is no backend, database, or
+authentication layer. Content (service descriptions, completed-project data, team
+contacts) is defined directly in TypeScript modules under `lib/`, and pages are
+statically generated at build time.
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+app/                    Route segments (App Router)
+  about/                Company + team page
+  completed-projects/   Portfolio, including a dynamic [slug] project detail route
+  contact/              Quote form + contact details
+  gallery/              Redirects to /completed-projects
+  services/             Service catalogue
+components/             Page sections and shared UI primitives
+  ui/                   Small reusable primitives (button, card, input, select, textarea)
+lib/                    Static content and helpers (completed-projects.ts, team.ts, utils.ts)
 ```
 
-**Edit a file directly in GitHub**
+## Engineering Highlights
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- **Static generation with a dynamic detail route** — completed projects are defined
+  as typed data (`lib/completed-projects.ts`) and rendered through a shared
+  `[slug]` route plus a reusable project template component, rather than duplicating
+  markup per case study.
+- **Type-safe content model** — a discriminated union (`BusinessProject` vs.
+  `ResidentialHighlightsProject`) lets one gallery system render two meaningfully
+  different layouts (case-study cards vs. before/after sections) from the same data
+  source without runtime branching in the UI.
+- **Image handling** — all photography is served from Cloudinary and rendered through
+  `next/image`, with `remotePatterns` locked to the project's own Cloudinary account.
+- **Small, composable UI layer** — lightweight `components/ui` primitives (variant
+  helpers rather than a full component library) keep styling consistent without
+  pulling in unnecessary dependencies.
 
-**Use GitHub Codespaces**
+## Screenshots
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Not yet included in this repository. Recommended before publishing publicly:
+homepage hero, services page, a completed-project detail view, and the contact page,
+captured at both desktop (1440px) and mobile (390px) widths.
 
-## What technologies are used for this project?
+## Running Locally
 
-This project is built with:
+Requires Node.js 20.9+ (see `.nvmrc`) — Next.js 16 does not support Node 18.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```bash
+npm install
+npm run dev            # http://localhost:3000
+```
 
-## How can I deploy this project?
+Other scripts:
 
-Simply open [Lovable](https://lovable.dev/projects/09a14ae7-bd4a-415b-b22e-66bbeb1a9240) and click on Share -> Publish.
+```bash
+npm run dev:turbopack  # dev server with Turbopack
+npm run build           # production build
+npm run start            # serve the production build
+npm run lint              # ESLint
+```
 
-## Can I connect a custom domain to my Lovable project?
+This project currently has no required environment variables — all content is static
+or pulled from the public Cloudinary CDN. If environment-specific configuration is
+added later, document the variable names (not values) in an `.env.example` file.
 
-Yes, you can!
+## Testing / Quality
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+- **TypeScript:** `npx tsc --noEmit`
+- **Lint:** `npm run lint` (ESLint via `eslint-config-next`, enforced during
+  `npm run build`)
+- **Build:** `npm run build`
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+There is no automated test suite at this time.
+
+## Deployment
+
+Deployed on Netlify (zero-config Next.js support). Netlify's build image must use
+Node.js 20.9+ — this is pinned via `.nvmrc` and `package.json` `engines`, since
+Next.js 16 requires it and some Netlify build images still default to Node 18.
+No environment secrets are required for the build.
+
+## What I Built
+
+I audited, secured, and cleaned up this repository for production and portfolio
+presentation: patched a critical Next.js RCE and then upgraded through to Next.js 16
+(verifying Netlify/Node compatibility before doing so and pinning the required Node
+version), introduced a working ESLint configuration (previously absent, with lint
+silently skipped during builds), removed dead code and unused assets, resolved a
+conflicting package-manager lockfile that was breaking production builds, and
+tightened `.gitignore` coverage. Feature development on the site itself (the pages,
+components, and content described above) was built iteratively prior to this audit;
+this pass focused on hardening and presentation rather than rewriting working
+functionality.
