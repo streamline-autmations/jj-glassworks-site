@@ -88,9 +88,23 @@ lib/                    Static content and helpers (completed-projects.ts, team.
 
 ## Screenshots
 
-Not yet included in this repository. Recommended before publishing publicly:
-homepage hero, services page, a completed-project detail view, and the contact page,
-captured at both desktop (1440px) and mobile (390px) widths.
+### Home
+
+![Home](docs/screenshots/home-desktop.png)
+
+### Completed projects gallery
+
+![Completed projects gallery](docs/screenshots/project-gallery-desktop.png)
+
+### Project detail
+
+![Project detail](docs/screenshots/project-detail-desktop.png)
+
+### Mobile
+
+![Mobile](docs/screenshots/mobile.png)
+
+A services-page capture is also in `docs/screenshots/`.
 
 ## Running Locally
 
