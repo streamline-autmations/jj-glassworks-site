@@ -73,19 +73,6 @@ const SOLID_BUILD_IMAGES = [
   "https://res.cloudinary.com/dnlgohkcc/image/upload/v1770716927/imgi_27_1590de6fe3880c6ac1125de1a8857c8b_upscayl_8x_pch3m4.jpg",
 ];
 
-const RESIDENTIAL_DOORS =
-  "https://res.cloudinary.com/dnlgohkcc/image/upload/v1770725348/DOORS_jgtpmv.jpg";
-const RESIDENTIAL_WINDOWS =
-  "https://res.cloudinary.com/dnlgohkcc/image/upload/v1770725361/WINDOWS_dlvucn.jpg";
-const RESIDENTIAL_SHOWERS =
-  "https://res.cloudinary.com/dnlgohkcc/image/upload/v1770725362/Showers_kxlaod.jpg";
-const RESIDENTIAL_MIRRORS =
-  "https://res.cloudinary.com/dnlgohkcc/image/upload/v1770725350/MIRRORS_bmyg6e.jpg";
-const RESIDENTIAL_SHOPFRONTS =
-  "https://res.cloudinary.com/dnlgohkcc/image/upload/v1770725355/SHOPFRONTS_ysq4ma.jpg";
-const RESIDENTIAL_BALUSTRADES =
-  "https://res.cloudinary.com/dnlgohkcc/image/upload/v1770725349/Balustrades_tqomgo.jpg";
-
 export const completedProjects: CompletedProject[] = [
   {
     slug: "lions-pride",
